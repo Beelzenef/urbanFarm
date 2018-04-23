@@ -1,16 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlotManager : MonoBehaviour {
 
-	// Use this for initialization
+    Seed seed;
+
 	void Start () {
-		
+        seed = null;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public void setSeed()
+    {
+        seed = new Seed();
+    }
+
+    public void growDaSeed()
+    {
+        seed.growSeed();
+        if (seed.isSeedGrown())
+            Debug.Log("Seed is ready! Pick me up!");
+    }
 }
