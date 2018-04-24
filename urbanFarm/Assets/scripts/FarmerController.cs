@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(PlayerMotor))]
 public class FarmerController : MonoBehaviour {
@@ -9,6 +10,8 @@ public class FarmerController : MonoBehaviour {
     PlayerMotor motor;
 
     bool enablePlant;
+
+    public GameObject[] plotList;
 
     GameObject plot;
 
@@ -32,7 +35,7 @@ public class FarmerController : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && enablePlant)
+        if (Input.GetKeyDown(KeyCode.P))
         {
             // Send message to plot to get the seed going!
             plot.GetComponent<Renderer>().material.color = Color.red;
@@ -50,8 +53,13 @@ public class FarmerController : MonoBehaviour {
 
         if (c.gameObject.name == "Plot")
         {
-            enablePlant = true;
             plot = c.gameObject;
+        }
+
+        if (c.gameObject.name == "Door")
+        {
+            // Fadeout
+            // 
         }
     }
 
