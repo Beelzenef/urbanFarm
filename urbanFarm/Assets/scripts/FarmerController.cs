@@ -11,8 +11,6 @@ public class FarmerController : MonoBehaviour {
 
     bool enablePlant;
 
-    public GameObject[] plotList;
-
     GameObject plot;
 
 	void Start () {
@@ -38,8 +36,12 @@ public class FarmerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.P))
         {
             // Send message to plot to get the seed going!
-            plot.GetComponent<Renderer>().material.color = Color.red;
             Inventory.UseSeed();
+            if (!plot.GetComponent<PlotManager>().IsPlanted())
+            {
+                plot.AddComponent<Seed>();
+                plot.GetComponent<PlotManager>().SetSeed();
+            }
         }
 
     }
@@ -59,7 +61,7 @@ public class FarmerController : MonoBehaviour {
         if (c.gameObject.name == "Door")
         {
             // Fadeout
-            // 
+            c.GetComponent<TimeManager>().OneDayMore();
         }
     }
 

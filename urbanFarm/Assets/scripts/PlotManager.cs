@@ -2,21 +2,36 @@
 
 public class PlotManager : MonoBehaviour {
 
-    Seed seed;
+    private Seed seed;
+    private bool planted;
 
 	void Start () {
         seed = null;
+        planted = false;
 	}
 
-    public void setSeed()
+    public bool IsPlanted()
     {
-        seed = new Seed();
+        return planted;
     }
 
-    public void growDaSeed()
+    public void SetSeed()
+    {
+        seed = GetComponent<Seed>();
+        GetComponent<Renderer>().material.color = Color.red;
+        planted = true;
+    }
+
+    public void GrowDaSeed()
     {
         seed.growSeed();
         if (seed.isSeedGrown())
+        {
             Debug.Log("Seed is ready! Pick me up!");
+            planted = false;
+            GetComponent<Renderer>().material.color = Color.green;
+            Destroy(GetComponent<Seed>());
+        }
     }
+
 }

@@ -3,8 +3,8 @@
 public class Seed : MonoBehaviour {
 
     string seedName;
-    int daysToGrow;
-    int daysGrowing;
+    public int daysToGrow;
+    public int daysGrowing;
     string fruit;
 
 	void Start () {
