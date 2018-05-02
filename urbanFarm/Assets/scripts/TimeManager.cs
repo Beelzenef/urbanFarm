@@ -6,15 +6,23 @@ public class TimeManager : MonoBehaviour {
 
     private int days;
     private List<PlotManager> plotList;
+    private List<TreeManager> treeList;
 
     void Start()
     {
         plotList = new List<PlotManager>();
+        treeList = new List<TreeManager>();
         GameObject[] plots = GameObject.FindGameObjectsWithTag("Plot");
+        GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
 
         foreach (GameObject item in plots)
         {
             plotList.Add(item.GetComponent<PlotManager>());
+        }
+
+        foreach (GameObject item in trees)
+        {
+            treeList.Add(item.GetComponent<TreeManager>());
         }
 
     }
@@ -28,6 +36,11 @@ public class TimeManager : MonoBehaviour {
             {
                 item.GrowDaSeed();
             }
+        }
+
+        foreach (TreeManager item in treeList)
+        {
+            item.GrowFruits();
         }
     }
 }

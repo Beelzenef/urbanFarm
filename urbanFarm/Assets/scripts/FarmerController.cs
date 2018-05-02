@@ -10,17 +10,20 @@ public class FarmerController : MonoBehaviour {
     PlayerMotor motor;
 
     bool enablePlant;
+    bool enablePickFruits;
 
     GameObject plot;
+    GameObject tree;
 
 	void Start () {
         cam = Camera.main;
         motor = GetComponent<PlayerMotor>();
 
         enablePlant = false;
+        enablePickFruits = false;
 	}
 	
-	void Update () {
+	void FixedUpdate () {
 		
         if (Input.GetMouseButtonDown(0))
         {
@@ -35,12 +38,23 @@ public class FarmerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            // Send message to plot to get the seed going!
             Inventory.UseSeed();
-            if (!plot.GetComponent<PlotManager>().IsPlanted())
+            if (plot.GetComponent<PlotManager>().IsPlanted())
+            {
+                // Pick up stuff!
+            }
+            else
             {
                 plot.AddComponent<Seed>();
                 plot.GetComponent<PlotManager>().SetSeed();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (tree.GetComponent<TreeManager>().IsTreeReady())
+            {
+                tree.GetComponent<TreeManager>().PickFruits();
             }
         }
 
@@ -56,12 +70,19 @@ public class FarmerController : MonoBehaviour {
         if (c.gameObject.name == "Plot")
         {
             plot = c.gameObject;
+            enablePlant = true;
         }
 
         if (c.gameObject.name == "Door")
         {
             // Fadeout
             c.GetComponent<TimeManager>().OneDayMore();
+        }
+
+        if (c.gameObject.name == "Tree")
+        {
+            tree = c.gameObject;
+            enablePickFruits = true;
         }
     }
 
@@ -70,6 +91,10 @@ public class FarmerController : MonoBehaviour {
         if (c.gameObject.name == "Plot")
         {
             enablePlant = false;
+        }
+        if (c.gameObject.name == "Tree")
+        {
+            enablePickFruits = false;
         }
     }
 }
